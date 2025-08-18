@@ -1,7 +1,8 @@
 import streamlit as st
-import ui
-import gwp_calculator
-import chatbot
+from lib import ui
+from lib import gwp_calculator
+from lib import chatbot
+
 #Ausführen der App anhand der Main-Funktion
 def main():
     """Main function to run the Streamlit application."""

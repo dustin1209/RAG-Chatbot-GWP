@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-import constants
+from lib import constants
 #Verallgemeinerung des GWP-Rechners
 def calculate_gwp(params):
     """Calculates GWP based on material and parameters."""

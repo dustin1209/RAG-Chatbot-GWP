@@ -7,7 +7,7 @@ from langchain_openai import ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from typing import Annotated
 import os
-import constants
+from lib import constants
 import ui
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
