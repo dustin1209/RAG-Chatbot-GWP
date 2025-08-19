@@ -8,7 +8,7 @@ from langchain_community.vectorstores import FAISS
 from typing import Annotated
 import os
 from lib import constants
-import ui
+from lib import ui
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
@@ -26,8 +26,8 @@ def vector_search(query: Annotated[str, "Anfrage an die Vektordatenbank"]) -> st
 
     docs_text = "\n\n".join([res.page_content for res in results])
     # Formulierung der Antwort anhand der 5 Dokumente
-    prompt = f"""Basierend auf den folgenden Dokumentauszügen beantworte bitte die Frage möglichst präzise:
-
+    prompt = f"""Du bist ein sachkundiger KI-Assistent. Beantworte Fragen ausschließlich auf Basis der folgenden Dokumentauszüge. 
+    Antworte klar, präzise und verständlich. Wenn die Dokumente keine ausreichenden Informationen liefern, sage: "Keine ausreichenden Informationen in den Dokumenten vorhanden.
     
     Dokumente:
     {docs_text}
