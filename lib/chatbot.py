@@ -1,3 +1,4 @@
+#Erezugen des Chatbots mit allen benötigten Importen - Tools für den REACT_agent erstellen-Executor erstellen mit verwendbaren Tools-Chatverlauf und Chathandling erzeugen
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -30,8 +31,9 @@ def vector_search(query: Annotated[str, "Anfrage an die Vektordatenbank"]) -> st
 
     docs_text = "\n\n".join([res.page_content for res in results])
     # Formulierung der Antwort anhand der 5 Dokumente
-    prompt = f"""Du bist ein sachkundiger KI-Assistent. Beantworte Fragen ausschließlich auf Basis der folgenden Dokumentauszüge. 
-    Antworte klar, präzise und verständlich. Wenn die Dokumente keine ausreichenden Informationen liefern, sage: "Keine ausreichenden Informationen in den Dokumenten vorhanden.
+    prompt = f"""Du bist ein sachkundiger KI-Assistent. Beantworte Fragen auf Basis der folgenden Dokumentauszüge. 
+                Falls die Dokumente nicht alle Details enthalten, nutze die vorhandenen Informationen so gut wie möglich, 
+                anstatt zu sagen, dass keine Informationen vorhanden sind.
     
     Dokumente:
     {docs_text}
@@ -46,12 +48,12 @@ def vector_search(query: Annotated[str, "Anfrage an die Vektordatenbank"]) -> st
         api_key=os.getenv("OPENAI_API_KEY")
     )
     
-    response = llm.chat([
+    response = llm.invoke([
         {"role": "system", "content": "Du bist ein hilfreicher Assistent."},
         {"role": "user", "content": prompt}
     ])
     #Ausgabe
-    return response.messages[0].content
+    return response.content
 
 #Tool-Vergleiche Deckensysteme
 @tool

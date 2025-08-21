@@ -1,3 +1,4 @@
+#Main-Funktion zum Ausführen der grafischen Benutzeroberfläche
 import streamlit as st
 from lib import ui
 from lib import gwp_calculator
@@ -13,7 +14,7 @@ def main():
         st.session_state.auswahl_bestaetigt = False
     if "details_bestaetigt" not in st.session_state:
         st.session_state.details_bestaetigt = False
-    'Einholen der Benutzerauswahl'
+    
     option = ui.get_user_choice()
     #Wenn Berechnungstool geöffnet wird, wird dieses auch ausgeführt ansonsten start des Chatbots
     if st.session_state.auswahl_bestaetigt:
