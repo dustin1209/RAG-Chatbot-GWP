@@ -13,6 +13,10 @@ from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 load_dotenv()
+import torch 
+torch.classes.__path__ = [os.path.join(torch.__path__[0], torch.classes.__file__)] 
+
+
 
 
 #Tool-Vektorsuche erstellen
@@ -20,7 +24,7 @@ load_dotenv()
 def vector_search(query: Annotated[str, "Anfrage an die Vektordatenbank"]) -> str:
     """Durchsuche die Vekordatenbank nach Vektoren, die der Nutzeranfrage am ähnlichsten sind."""
     embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", model_kwargs={"device": "cpu"})
-    vectorstore = FAISS.load_local("Schritt3.-FAISS-Vectorstore", embedding_model, allow_dangerous_deserialization=True)
+    vectorstore = FAISS.load_local("Schritt3.-FAISS-Vectorstore", embeddings=embedding_model, allow_dangerous_deserialization=True)
     # Vektorsuche anahnd der 5 ähnlichsten Ergebnisse
     results = vectorstore.similarity_search(query, k=5)
 
@@ -47,7 +51,7 @@ def vector_search(query: Annotated[str, "Anfrage an die Vektordatenbank"]) -> st
         {"role": "user", "content": prompt}
     ])
     #Ausgabe
-    return response.content
+    return response.messages[0].content
 
 #Tool-Vergleiche Deckensysteme
 @tool
